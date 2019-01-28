@@ -1,4 +1,5 @@
 //Jconvolver
+//Jconvolver
 
 //notes
 //config file
@@ -9,6 +10,10 @@
 "100000".asHexIfPossible
 "100000".asHexIfPossible / s.sampleRate
 */
+
+//todo
+//set jconvolver name and set that for routing
+//infer sc name - possibly using JACK commands (see JACK quark or use JACK quark?) and or infering from configuration (hardcoded on windows (for JackRouter), taken from ServerOptions on linux (JACK) ?
 
 Jconvolver {
 	classvar <>jackScOutNameDefault = "SuperCollider:out_"; // for supernova: "supernova:output_"
