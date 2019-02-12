@@ -22,7 +22,7 @@ Jconvolver.executablePath_("/usr/local/bin/jconvolver")
 
 
 
-Jconvolver.createSimpleConfigFileFromFolder(kernelFolderPath: ~path, partitionSize: 512, maxKernelSize: 240000, matchFileName: "*.wav", autoConnectToScChannels: 0, autoConnectToSoundcardChannels: 0);
+Jconvolver.createSimpleConfigFileFromFolder(kernelFolderPath: ~path, partitionSize: 512, maxKernelSize: 240000, matchFileName: "*.wav", autoConnectToScChannels: 2, autoConnectToSoundcardChannels: 0);
 
 // assumes scsynth is running to make Jack connections
 s.options.device_("JackRouter");
@@ -35,7 +35,7 @@ j.isRunning
 //now you can look in qjackctl at the connections
 
 // test with sound from SC...
-x.free; x = play({ Decay.ar(Impulse.ar(XLine.kr(1,50,20), 0.25), 0.2, PinkNoise.ar, 0).dup(2) }, outbus: 1);
+x.free; x = play({ Decay.ar(Impulse.ar(XLine.kr(1,50,20), 0.25), 0.2, PinkNoise.ar, 0).dup(2) }, outbus: 2);
 s.meter
 x.free
 
@@ -43,10 +43,6 @@ x.free
 j.free;
 
 //uses JACK quark
-JSC
-
-JACK
-
 Quarks.gui
 
 SCJConnection.prepend = "/usr/local/bin/";
