@@ -212,11 +212,11 @@ Jconvolver {
 		"Starting jconvolver...".postln;
 		// command = executablePath;
 		command = "exec" + executablePath; //this fixes PID issues on my linux system; should work on OSX without problems
-		if(redirectToStdOut, {command = command + "2>&1"}); //redirects stderr to stdout, which causes jconvolver's output to be printed in SC's post window
 		if(compensateLatency.notNil, {
 			command = command + "-L" + compensateLatency.asString;
 		});
 		command = command + kernelFolderPath.withTrailingSlash ++ configFileName;
+		if(redirectToStdOut, {command = command + "2>&1"}); //redirects stderr to stdout, which causes jconvolver's output to be printed in SC's post window
 		command.postln;
 		pid = command.unixCmd({|err|
 			var msg = format("jconvolver stopped, pid %, status %", pid, err);
