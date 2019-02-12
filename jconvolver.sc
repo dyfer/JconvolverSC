@@ -23,6 +23,7 @@ Jconvolver {
 	classvar <>jackSystemOutNameDefault = "system:playback_";
 	classvar <>executablePath = "jconvolver";
 	classvar <>configFileName = "jconvolver.conf";
+	classvar <>redirectToStdOut = true; //redirects stderr to stdout, which causes jconvolver's output to be printed in SC's post window
 
 	var <kernelFolderPath, <compensateLatency, <configFileStringArr;
 	var <partitionSize, <maxKernelSize, <numInChannels, <numOutChannels, channelMatrix;
@@ -211,6 +212,7 @@ Jconvolver {
 		"Starting jconvolver...".postln;
 		// command = executablePath;
 		command = "exec" + executablePath; //this fixes PID issues on my linux system; should work on OSX without problems
+		if(redirectToStdOut, {command = command + "2>&1"}); //redirects stderr to stdout, which causes jconvolver's output to be printed in SC's post window
 		if(compensateLatency.notNil, {
 			command = command + "-L" + compensateLatency.asString;
 		});
