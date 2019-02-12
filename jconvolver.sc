@@ -216,15 +216,23 @@ Jconvolver {
 		});
 		command = command + kernelFolderPath.withTrailingSlash ++ configFileName;
 		command.postln;
-		pid = command.unixCmd;
-		("jconvolver started with pid:"+pid).postln;
+		pid = command.unixCmd({|err|
+			var msg = format("jconvolver stopped, pid %, status %", pid, err);
+			if(err.asInteger == 0, {
+				msg.posltn;
+			}, {
+				msg.warn;
+			});
+			pid = nil;
+		});
+		pid !? {postf("jconvolver started, pid: %\n", pid)};
 	}
 
 	free {
-		("kill -15 " ++ pid.asString).unixCmd;
+		pid !? {thisProcess.platform.killProcessByID(pid)};
 	}
 
 	isRunning {
-		^pid.pidRunning;
+		^pid.isNil.not;
 	}
 }
