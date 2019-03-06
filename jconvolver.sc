@@ -221,7 +221,7 @@ Jconvolver {
 		pid = command.unixCmd({|err|
 			var msg = format("jconvolver stopped, pid %, status %", pid, err);
 			if(err.asInteger == 0, {
-				msg.posltn;
+				msg.postln;
 			}, {
 				msg.warn;
 			});
